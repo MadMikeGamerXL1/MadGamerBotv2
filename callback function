@@ -1,0 +1,32 @@
+function searchUser(data, cb) {
+
+  //  globalLog("info", "User Data: " + data);
+    dbuser.findOne({ 'name': data }, 'name currency time', function (err, person) {
+        if (person != null) {
+            globalLog("success", "Found User information for '" + person.name + "': \n" + "Loot: " + person.currency + "\n Time: " + person.time);
+            globalLog("info", "Test user info: " + person);
+            var toReturn = person;
+            cb(toReturn); 
+        }
+        else {
+            globalLog("info", "Creating user: " + data);
+            var tmpa = new newdbUserObj(data, [0, 0, 0, 0], 0, 0);
+            globalLog("success", "Created user '" + data + "' successfully.");
+        }
+        if (err) return globalLog("error", "Error occured checking user in database: \n" + err);
+        
+    });
+};
+
+
+    if (cmd[0] == "+check") { // Don't ask what kind of command character I used.. xD
+        if (user.username == "madmikegamerxl1") {
+            console.log("Checking user '" + user.username + "'. [Command Issued by: " + user.username + "]");
+
+            searchUser(user.username, function (info) {
+                console.log("[RAW] Success: " + info);
+                console.log("Found info: \n Currency: " + info.currency);
+            });
+                
+        }
+    }
